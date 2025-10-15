@@ -1,9 +1,9 @@
 # gmail-oauth-demo
 
-# How to Run the Demo
+## How to Run the Demo
 
-# How Does it Work?
+## How Does it Work?
 
-# Frameworks and Libraries Used
+## Frameworks and Libraries Used
 
-# Limitations and Future Improvements
+## Limitations and Future Improvements
