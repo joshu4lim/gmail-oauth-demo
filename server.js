@@ -7,8 +7,18 @@ const port = 3000;
 const path = require('path')
 app.use('/', express.static(path.join(__dirname, 'public')))
 
-app.get('/redirect.html', (req, res) => {
-    res.send('Redirect');
+app.get('/redirect', (req, res) => {
+    const filePath = path.join(__dirname, 'public', 'redirect.html');
+    res.sendFile(filePath);
+});
+
+app.post('/redirect', (req, res) => {
+    const filePath = path.join(__dirname, 'public', 'redirect.html');
+    console.log('Signing in');
+
+    // VALIDATE TOKENS
+
+    res.redirect('/redirect');
 });
 
 app.listen(port, () => {

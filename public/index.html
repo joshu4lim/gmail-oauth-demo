@@ -1,23 +1,41 @@
-<!-- Use tutorial: https://developers.google.com/identity/sign-in/web/sign-in -->
+<!-- Used tutorial: https://codelabs.developers.google.com/codelabs/sign-in-with-google-button#0 -->
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <!-- Google login page -->
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
-    <meta name="google-signin-client_id" content="699241552913-8ia7fsmr0t00mbjdpei9v7d61padr4ei.apps.googleusercontent.com">
+    <script src="https://accounts.google.com/gsi/client" async></script>
+
     <script>
-      function onSignIn(googleUser) {
-        var profile = googleUser.getBasicProfile();
-        console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-        console.log('Name: ' + profile.getName());
-        console.log('Image URL: ' + profile.getImageUrl());
-        console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+      function decodeJWT(token) {
+        let base64Url = token.split(".")[1];
+        let base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+        let jsonPayload = decodeURIComponent(
+          atob(base64)
+            .split("")
+            .map(function (c) {
+              return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+            })
+            .join("")
+        );
+        return JSON.parse(jsonPayload);
+      }
+
+      function handleCredentialResponse(response) {
+        console.log("Encoded JWT ID token: " + response.credential);
+
+        const responsePayload = decodeJWT(response.credential);
+
+        console.log("Decoded JWT ID token fields:");
+        console.log("  Full Name: " + responsePayload.name);
+        console.log("  Given Name: " + responsePayload.given_name);
+        console.log("  Family Name: " + responsePayload.family_name);
+        console.log("  Unique ID: " + responsePayload.sub);
+        console.log("  Profile image URL: " + responsePayload.picture);
+        console.log("  Email: " + responsePayload.email);
       }
     </script>
-
     <!-- CSS to center the button -->
     <style>
-      .g-signin2 {
+      .g_id_signin {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -27,7 +45,22 @@
     </style>
   </head>
   <body>
+    <!-- Generate using: https://developers.google.com/identity/gsi/web/tools/configurator-->
+    <div id="g_id_onload"
+        data-client_id="699241552913-8ia7fsmr0t00mbjdpei9v7d61padr4ei.apps.googleusercontent.com"
+        data-context="signin"
+        data-ux_mode="redirect"
+        data-login_uri="http://localhost:3000/redirect"
+        data-auto_prompt="false">
+    </div>
     <!-- g_id_signin places the button on a page and supports customization -->
-    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+    <div class="g_id_signin"
+        data-type="standard"
+        data-shape="rectangular"
+        data-theme="outline"
+        data-text="signin_with"
+        data-size="large"
+        data-logo_alignment="left">
+    </div>
   </body>
 </html>
