@@ -1,15 +1,16 @@
-// Main server
-const { createServer } = require('node:http');
-
-const hostname = 'localhost';
+// Main server using Node.js
+const express = require('express');
+const app = express();
 const port = 3000;
 
-const server = createServer((req, res) => {
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'text/plain');
-  res.end('Hello World');
+// Serve files inside public/
+const path = require('path')
+app.use('/', express.static(path.join(__dirname, 'public')))
+
+app.get('/redirect.html', (req, res) => {
+    res.send('Redirect');
 });
 
-server.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
+app.listen(port, () => {
+    console.log(`Server is running on http://localhost:${port}`);
 });
