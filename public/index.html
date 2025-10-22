@@ -1,66 +1,65 @@
-<!-- Used tutorial: https://codelabs.developers.google.com/codelabs/sign-in-with-google-button#0 -->
+<!-- Main page -->
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <script src="https://accounts.google.com/gsi/client" async></script>
-
     <script>
-      function decodeJWT(token) {
-        let base64Url = token.split(".")[1];
-        let base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
-        let jsonPayload = decodeURIComponent(
-          atob(base64)
-            .split("")
-            .map(function (c) {
-              return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
-            })
-            .join("")
-        );
-        return JSON.parse(jsonPayload);
-      }
+        /*
+        * Create form to request access token from Google's OAuth 2.0 server.
+        */
+        function oauthSignIn() {
+        // Google's OAuth 2.0 endpoint for requesting an access token
+        var oauth2Endpoint = 'https://accounts.google.com/o/oauth2/v2/auth';
 
-      function handleCredentialResponse(response) {
-        console.log("Encoded JWT ID token: " + response.credential);
+        // Create <form> element to submit parameters to OAuth 2.0 endpoint.
+        var form = document.createElement('form');
+        form.setAttribute('method', 'GET'); // Send as a GET request.
+        form.setAttribute('action', oauth2Endpoint);
 
-        const responsePayload = decodeJWT(response.credential);
+        // Parameters to pass to OAuth 2.0 endpoint.
+        var params = {'client_id': '699241552913-8ia7fsmr0t00mbjdpei9v7d61padr4ei.apps.googleusercontent.com',
+                        'redirect_uri': 'http://localhost:3000/redirect',
+                        'response_type': 'token',
+                        'scope': 'https://www.googleapis.com/auth/gmail.addons.current.action.compose',
+                        'include_granted_scopes': 'true',
+                        'state': 'pass-through value'};
 
-        console.log("Decoded JWT ID token fields:");
-        console.log("  Full Name: " + responsePayload.name);
-        console.log("  Given Name: " + responsePayload.given_name);
-        console.log("  Family Name: " + responsePayload.family_name);
-        console.log("  Unique ID: " + responsePayload.sub);
-        console.log("  Profile image URL: " + responsePayload.picture);
-        console.log("  Email: " + responsePayload.email);
-      }
+        // Add form parameters as hidden input values.
+        for (var p in params) {
+            var input = document.createElement('input');
+            input.setAttribute('type', 'hidden');
+            input.setAttribute('name', p);
+            input.setAttribute('value', params[p]);
+            form.appendChild(input);
+        }
+
+        // Add form to page and submit it to open the OAuth 2.0 endpoint.
+        document.body.appendChild(form);
+        form.submit();
+        }
     </script>
     <!-- CSS to center the button -->
     <style>
-      .g_id_signin {
+      body {
         display: flex;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
         height: 100vh;
         margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+      
+      button {
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        font-family: Arial, Helvetica, sans-serif;
       }
     </style>
   </head>
   <body>
-    <!-- Generate using: https://developers.google.com/identity/gsi/web/tools/configurator-->
-    <div id="g_id_onload"
-        data-client_id="699241552913-8ia7fsmr0t00mbjdpei9v7d61padr4ei.apps.googleusercontent.com"
-        data-context="signin"
-        data-ux_mode="redirect"
-        data-login_uri="http://localhost:3000/redirect"
-        data-auto_prompt="false">
-    </div>
-    <!-- g_id_signin places the button on a page and supports customization -->
-    <div class="g_id_signin"
-        data-type="standard"
-        data-shape="rectangular"
-        data-theme="outline"
-        data-text="signin_with"
-        data-size="large"
-        data-logo_alignment="left">
-    </div>
+    <h1>Welcome to the Gmail OAuth Demo</h1>
+    <div class = g_id_signin></div>
+    <button onclick="oauthSignIn()">Sign in with Google</button>
   </body>
 </html>
