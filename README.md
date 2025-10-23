@@ -31,11 +31,11 @@ A simple two-page web app that lets users sign in with Google and send emails vi
 3. User fills out the form and submits it and let's the server know through the /send route. The server formats the email and sends it using the Gmail API.
 
 ## Frameworks and Libraries Used
-HTML / CSS / JavaScript - Frontend
-Node.js - Backend
-Express - Framework for Node.js
-googleapis - Official Google API client for Node.js
-dotenv - Loads environment variables from .env
+- HTML / CSS / JavaScript - Frontend
+- Node.js - Backend
+- Express - Framework for Node.js
+- googleapis - Official Google API client for Node.js
+- dotenv - Loads environment variables from .env
 
 ## Limitations and Future Improvements
 - Tokens are not saved, so restarting it requires the user to re-login
