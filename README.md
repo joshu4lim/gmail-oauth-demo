@@ -26,7 +26,9 @@ A simple two-page web app that lets users sign in with Google and send emails vi
 6. Deploy!
 
 ## How Does it Work?
+
 1. User clicks the login button on the main page. It redirects the user to Google's OAuth login and consent page, requesting a token.
+\*While logging in, there will be a warning sign since the client isn't verified by Google. You can proceed by clicking on "Advanced.\*
 2. Once the user gives permission and logs-in, Google gives the user a temporary authorization code. The server then exchanges this code for a token that is used to call the Gmail API. The user is also redirected to the page to send the email.
 3. User fills out the form and submits it and let's the server know through the /send route. The server formats the email and sends it using the Gmail API.
 
