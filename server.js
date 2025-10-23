@@ -14,7 +14,7 @@ let savedTokens = null;
 const oauth2Client = new google.auth.OAuth2(
     process.env.GOOGLE_CLIENT_ID,
     process.env.GOOGLE_CLIENT_SECRET,
-    'http://localhost:3000/redirect'
+    process.env.REDIRECT_URI
 );
 
 // Serve files inside public/
@@ -35,7 +35,7 @@ app.get('/auth', (req, res) => {
     res.redirect(authUrl); // send user to Google login
 });
 
-// GET request for redirect, serves redirect.html
+// GET request for redirect route, serves redirect.html
 app.get('/redirect', async (req, res) => {
     // Get temporary code from URL
     const code = req.query.code;
