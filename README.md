@@ -6,8 +6,8 @@ A simple two-page web app that lets users sign in with Google and send emails vi
 1. Clone the repo
 2. Install dependencies (npm install)
 3. Create an .env file in the project's root and fill in variables:
-- GOOGLE_CLIENT_ID=<your-client-id>
-- GOOGLE_CLIENT_SECRET=<your-client-secret>
+- GOOGLE_CLIENT_ID=\<your-client-id\>
+- GOOGLE_CLIENT_SECRET=\<your-client-secret\>
 - REDIRECT_URI=http://localhost:3000/redirect
 4. Start the server (node server.js)
 5. Open and visit http://localhost:3000
@@ -20,9 +20,9 @@ A simple two-page web app that lets users sign in with Google and send emails vi
 - Build Command: npm install
 - Start Command: node server.js
 5. Fill in env variables:
-- GOOGLE_CLIENT_ID=<your-client-id>
-- GOOGLE_CLIENT_SECRET=<your-client-secret>
-- REDIRECT_URI=http://<render link>/redirect
+- GOOGLE_CLIENT_ID=\<your-client-id\>
+- GOOGLE_CLIENT_SECRET=\<your-client-secret\>
+- REDIRECT_URI=http://\<render link\>/redirect
 6. Deploy!
 
 ## How Does it Work?
