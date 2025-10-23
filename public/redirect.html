@@ -11,10 +11,22 @@
                 margin: 0;
                 font-family: Arial, Helvetica, sans-serif;
             }
+            form {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 1px;
+            }
         </style>
     </head>
     <body>
-        <h2>Compose email</h2>
+        <h2>Compose Your Email</h2>
+        <ul>
+            <li><strong>To:</strong> Enter the recipient’s email (e.g., someone@example.com).</li>
+            <li><strong>Subject:</strong> Add a subject line.</li>
+            <li><strong>Body:</strong> Type your message.</li>
+            <li>Click the <strong>Send</strong> button to send the email!</li>
+        </ul>
         <form id="emailForm">
             <input type="email" id="to" placeholder="To" required><br>
             <input type="text" id="subject" placeholder="Subject" required><br>
